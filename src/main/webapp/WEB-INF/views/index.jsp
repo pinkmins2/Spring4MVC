@@ -6,5 +6,8 @@
 </head>
 <body>
 <h1>Hello World! from MVC</h1>
+<div>
+    <img src="/assets/img/nyang.png" />
+</div>
 </body>
 </html>
