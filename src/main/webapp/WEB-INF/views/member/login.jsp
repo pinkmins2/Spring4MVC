@@ -17,3 +17,5 @@
         </div>
     </form>
 </main>
+
+<script src="/assets/js/member.js"></script>
