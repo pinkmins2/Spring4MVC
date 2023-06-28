@@ -23,6 +23,7 @@ public class IndexController {
         // 로거 출력: 로그가 기존 빨간색이었는데, 흰색으로 보임
         logger.info("Hello, World!! from Logger!");
 
-        return "index";
+        //return "index";       //jsp view resolver
+        return "index.tiles";
     }
 }
