@@ -26,7 +26,7 @@ public class MemberController {
     @RequestMapping(value = "/member/join", method = RequestMethod.POST)
     public String joinok(Member m) {
         logger.info("member/joinok 호출!");
-        String viewName = "/member/fail";
+        String viewName = "redirect:/member/fail";
         if(msrv.saveMember(m))
             viewName = "redirect:/member/login";    // 회원가입 처리
         return viewName;
@@ -37,9 +37,12 @@ public class MemberController {
         return "member/login.tiles";
     }
     @RequestMapping(value = "/member/login", method = RequestMethod.POST)
-    public String loginok(Model m) {
+    public String loginok(Member m) {
+        String viewName = "redirect:member/loginfail";
         logger.info("member/loginok 호출!");
-        return "redirect:/member/myinfo";
+        if(msrv.loginMember(m))
+            viewName = "redirect:/member/myinfo";
+        return viewName;
     }
     @RequestMapping("/member/myinfo")
     public String myinfo(Model m) {
