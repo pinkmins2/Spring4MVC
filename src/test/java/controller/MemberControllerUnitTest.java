@@ -43,11 +43,19 @@ public class MemberControllerUnitTest {
     @Transactional
     public void joinokTest() throws Exception {
         mockMvc.perform(post("/member/join")
-                        .param("userid", "abc123a")
+                        .param("userid", "abc123")
                         .param("passwd", "987xyz")
                         .param("name", "abc123")
                         .param("email", "abc123@987xyz.co.kr"))
                 .andExpect(redirectedUrl("/member/login"));
+    }
+
+    @Test
+    public void loginokTest() throws Exception {
+        mockMvc.perform(post("/member/login")
+                        .param("userid", "abc123")
+                        .param("passwd", "987xyz"))
+                .andExpect(redirectedUrl("/member/myinfo"));
     }
 
 }
