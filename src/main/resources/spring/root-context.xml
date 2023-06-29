@@ -27,4 +27,10 @@
 		  p:dataSource="dataSource"
 		  p:dataSource-ref="dbcpDataSource" />
 
+	<!-- transaction template -->
+	<bean id="transactionManager"
+		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		  p:dataSource="dataSource"
+		  p:dataSource-ref="dbcpDataSource" />
+
 </beans>
