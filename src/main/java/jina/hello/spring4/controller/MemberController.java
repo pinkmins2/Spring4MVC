@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
+
 
 @Controller
 public class MemberController {
@@ -37,16 +39,27 @@ public class MemberController {
         return "member/login.tiles";
     }
     @RequestMapping(value = "/member/login", method = RequestMethod.POST)
-    public String loginok(Member m) {
+    public String loginok(Member m, HttpSession sess) {
         String viewName = "redirect:member/loginfail";
         logger.info("member/loginok 호출!");
         if(msrv.loginMember(m))
+            sess.setAttribute("member", m);                 // 세션변수 member 전제
+            //sess.setAttribute("userid", m.getUserid());     // 세션변수 member의 userid
             viewName = "redirect:/member/myinfo";
         return viewName;
     }
     @RequestMapping("/member/myinfo")
-    public String myinfo(Model m) {
+    public String myinfo(Model m, HttpSession sess) {
         logger.info("member/myinfo 호출!");
+        String userid =
+                ((Member)sess.getAttribute("member")).getUserid();
+        m.addAttribute("member", msrv.readOneMember(userid));
         return "member/myinfo.tiles";
+    }
+    @RequestMapping("/member/logout")
+    public String logout(Model m, HttpSession sess) {
+        logger.info("member/logout 호출!");
+        sess.invalidate();      // 세션 객체 제거
+        return "redirect:/";
     }
 }
