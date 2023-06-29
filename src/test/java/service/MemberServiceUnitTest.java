@@ -39,4 +39,11 @@ public class MemberServiceUnitTest {
         assertEquals(msrv.loginMember(m), true);
     }
 
+    @Test
+    public  void readOneMember() throws Exception {
+        String userid = "abc123";
+        // assertEquals(테스트 메서드, 검증값)
+        assertNotNull(msrv.readOneMember(userid));
+    }
+
 }
