@@ -40,4 +40,12 @@ public class MemberDAOUnitTest {
         assertNotNull(mdao.loginMember(m));
     }
 
+    @Test
+    public  void selectOneMember() throws Exception {
+        String userid = "abc123";
+        System.out.println(mdao.selectOneMember(userid));
+        assertNotNull(mdao.selectOneMember(userid));
+    }
+
+
 }
