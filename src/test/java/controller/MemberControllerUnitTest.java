@@ -1,13 +1,16 @@
 package controller;
 
+import jina.hello.spring4.model.Member;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
@@ -58,4 +61,17 @@ public class MemberControllerUnitTest {
                 .andExpect(redirectedUrl("/member/myinfo"));
     }
 
+    @Test
+    public void myinfoTest() throws Exception {
+        // 모조 세션 객체를 하나 만들어서 아이디를 저장해 둠
+        MockHttpSession sess = new MockHttpSession();
+        Member m = new Member();
+        m.setUserid("abc123");
+        sess.setAttribute("member",m);
+        MvcResult mvcResult =
+        mockMvc.perform(get("/member/myinfo").session(sess))
+                .andExpect(status().isOk())
+                .andReturn();
+        System.out.println(mvcResult.getModelAndView());
+    }
 }
