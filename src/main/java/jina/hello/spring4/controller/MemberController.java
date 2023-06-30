@@ -65,4 +65,11 @@ public class MemberController {
         sess.invalidate();      // 세션 객체 제거
         return "redirect:/";
     }
+    @RequestMapping("/member/loginfail")
+    public String loginfail() {
+        logger.info("member/loginfail 호출!");
+
+        return "member/loginfail.tiles";
+    }
+
 }
