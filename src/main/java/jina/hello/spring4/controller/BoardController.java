@@ -1,5 +1,6 @@
 package jina.hello.spring4.controller;
 
+import jina.hello.spring4.model.Board;
 import jina.hello.spring4.service.BoardService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,17 +32,17 @@ public class BoardController {
 
     @GetMapping("/write")
     public String write() {
-
-
         return "board/write.tiles";
     }
 
     @GetMapping("/view")
-    public String view() {
+    public String view(Model m, String bno) {
+        logger.info("board/view 호출!!");
+        Board board = bsrv.readOneBoard(bno);
 
+        m.addAttribute("board", board);
 
         return "board/view.tiles";
     }
-
 
 }
