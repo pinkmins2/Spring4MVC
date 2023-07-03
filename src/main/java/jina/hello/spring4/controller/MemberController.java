@@ -40,20 +40,21 @@ public class MemberController {
     }
     @RequestMapping(value = "/member/login", method = RequestMethod.POST)
     public String loginok(Member m, HttpSession sess) {
-        String viewName = "redirect:member/loginfail";
+        String viewName = "redirect:/member/loginfail";
         logger.info("member/loginok 호출!");
-        if(msrv.loginMember(m))
+        if(msrv.loginMember(m)) {
             sess.setAttribute("member", m);                 // 세션변수 member 전제
             //sess.setAttribute("userid", m.getUserid());     // 세션변수 member의 userid
             viewName = "redirect:/member/myinfo";
+        }
         return viewName;
     }
     @RequestMapping("/member/myinfo")
     public String myinfo(Model m, HttpSession sess) {
         logger.info("member/myinfo 호출!");
-        // 세션객체가 없을 경우 로그인 페이지로 이동
-        if(sess.getAttribute("member")==null)
-            return "redirect:/member/login";
+        // 세션객체가 없을 경우 로그인 페이지로 이동 - aop로 처리
+        //if(sess.getAttribute("member")==null)
+        //    return "redirect:/member/login";
         String userid =
                 ((Member)sess.getAttribute("member")).getUserid();
         m.addAttribute("member", msrv.readOneMember(userid));
