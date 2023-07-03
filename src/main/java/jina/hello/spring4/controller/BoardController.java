@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
@@ -32,7 +33,19 @@ public class BoardController {
 
     @GetMapping("/write")
     public String write() {
+
         return "board/write.tiles";
+    }
+
+    @PostMapping("/write")
+    public String writeok(Board bd) {
+        //logger.info("board/write 호출!!");
+        String returnPage = "redirect:/board/fail";
+
+        if(bsrv.saveBoard(bd))
+            returnPage = "redirect:/board/list?cpg=1";
+
+        return returnPage;
     }
 
     @GetMapping("/view")
