@@ -10,10 +10,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/servlet-context.xml",
@@ -45,5 +47,18 @@ public class BoardControllerUnitTest {
                 .andExpect(status().isOk())
                 .andReturn();
         System.out.println(mvcResult.getModelAndView());
+    }
+
+    @Test
+    @Transactional
+    public void writeokTest() throws Exception {
+        mockMvc.perform(post("/board/write")
+                        .param("title","제목t")
+                        .param("userid","abc123")
+                       .param("contents","내용t"))
+                .andExpect(status().is3xxRedirection())
+                //.andExpect(view().name("redirect:/board/list"));
+                .andExpect(redirectedUrl("/board/list"));
+
     }
 }
