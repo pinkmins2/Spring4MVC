@@ -13,6 +13,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 //자동으로 불러오기
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,5 +32,14 @@ public class BoardDAOUnitTest {
 
         assertEquals(results.size(), 15);
         System.out.println(results);
+    }
+
+    @Test
+    public void selectOneBoard() throws Exception {
+        String bno = "450";
+        Board result = bdao.selectOneBoard(bno);
+
+        assertNotNull(result);
+        System.out.println(result);
     }
 }
