@@ -12,6 +12,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,5 +32,13 @@ public class BoardServiceUnitTest {
         System.out.println(results);
     }
 
+    @Test
+    public  void readOneBoard() throws Exception {
+        String bno = "450";
+        Board result = bsrv.readOneBoard(bno);
+
+        assertNotNull(result);
+        System.out.println(result);
+    }
 
 }
