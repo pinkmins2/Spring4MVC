@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <main>
     <h2>게시판</h2>
@@ -43,7 +44,8 @@
                 <td>${bd.bno}</td>
                 <td><a href="/board/view?bno=${bd.bno}">${bd.title}</a></td>
                 <td>${bd.userid}</td>
-                <td>${bd.regdate}</td>
+                <td>${fn:substring(bd.regdate,0,10)}</td>
+                <%--앞에서 부터 9글자만 잘라서 표시--%>
                 <td>${bd.views}</td>
             </tr>
         </c:forEach>
