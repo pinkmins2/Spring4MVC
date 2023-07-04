@@ -1,9 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%-- aop로 처리
 <c:if test="${empty sessionScope.member}">
     <script>location.href='/member/login';</script>
-</c:if>
+</c:if>--%>
 
 <main>
     <script src="http://www.google.com/recaptcha/api.js"></script>
